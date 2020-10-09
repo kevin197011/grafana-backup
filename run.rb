@@ -43,9 +43,12 @@ class Grafana
   end
 
   def export_all(uids)
+    puts 'grafana dashboards backup:'
+    puts '=' * 80
     uids.each do |u|
       export_dashboard(u)
     end
+    puts 'Done!'
   end
 
   def http_get_methed(uri)
@@ -57,7 +60,7 @@ class Grafana
 end
 
 if __FILE__ == $PROGRAM_NAME
-  host = 'http://grafana.devops.com'
+  host = 'http://grafana.devops.com/'
   key = 'eyJrIjoibVRiaHNvZzBaMDVMOVZDbGl3QjRDendLWDM0bDRLUjYiLCJuIjoiYWRtaW4iLCJpZCI6MX0='
 
   g = Grafana.new(host, key)
