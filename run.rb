@@ -24,7 +24,7 @@ class Grafana
   def prepare
     FileUtils.rm_rf(dashboards_path) if Dir.exist?(dashboards_path)
     FileUtils.mkdir_p(dashboards_path)
-    puts "Reset #{dashboards_path} finished!"
+    puts "reset #{dashboards_path} finished!"
   end
 
   def dashboards
