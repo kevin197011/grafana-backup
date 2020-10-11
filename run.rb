@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require 'fileutils'
 require 'net/http'
 require 'uri'
 require 'json'
+require 'yaml'
 
 class Grafana
   attr_accessor :host
@@ -23,7 +26,9 @@ class Grafana
 
   def prepare
     FileUtils.rm_rf(dashboards_path) if Dir.exist?(dashboards_path)
-    FileUtils.mkdir_p(dashboards_path)
+    puts 'delete old dashboards data!'
+    FileUtils.mkdir_p("#{dashboards_path}/json")
+    FileUtils.mkdir_p("#{dashboards_path}/yaml")
     puts "reset #{dashboards_path} finished!"
   end
 
@@ -35,10 +40,17 @@ class Grafana
     http_get_methed("/api/dashboards/uid/#{uid}")
   end
 
-  def export_dashboard(uid)
-    File.open("#{dashboards_path}/#{dashboard(uid)['meta']['slug']}-#{uid}.json", 'w') do |f|
+  def export_dashboard_json(uid)
+    File.open("#{dashboards_path}/json/#{dashboard(uid)['meta']['slug']}-#{uid}.json", 'w') do |f|
       f.write(JSON.pretty_generate(dashboard(uid)))
-      puts "#{dashboards_path}/#{dashboard(uid)['meta']['slug']}-#{uid}.json ..."
+      puts "#{dashboards_path}/json/#{dashboard(uid)['meta']['slug']}-#{uid}.json ..."
+    end
+  end
+
+  def export_dashboard_yaml(uid)
+    File.open("#{dashboards_path}/yaml/#{dashboard(uid)['meta']['slug']}-#{uid}.yml", 'w') do |f|
+      f.write(YAML.dump(dashboard(uid)))
+      puts "#{dashboards_path}/yaml/#{dashboard(uid)['meta']['slug']}-#{uid}.yml ..."
     end
   end
 
@@ -46,7 +58,8 @@ class Grafana
     puts 'grafana dashboards backup:'
     puts '=' * 80
     uids.each do |u|
-      export_dashboard(u)
+      export_dashboard_json(u)
+      export_dashboard_yaml(u)
     end
     puts 'Done!'
   end

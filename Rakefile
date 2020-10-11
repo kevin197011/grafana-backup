@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 task default: :fmt
 
 task :fmt do
-  system 'rubocop -a'
+  system 'rubocop -A'
 end
 
 task push: :fmt do
