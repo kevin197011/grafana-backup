@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 16,
-  "iteration": 1602481049584,
+  "iteration": 1602486668792,
   "links": [],
   "panels": [
     {
@@ -1661,8 +1661,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "default",
+          "value": "default"
         },
         "hide": 0,
         "includeAll": false,
