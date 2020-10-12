@@ -6,6 +6,7 @@ require 'uri'
 require 'json'
 require 'yaml'
 
+# Grafana
 class Grafana
   attr_accessor :host
   attr_accessor :key
