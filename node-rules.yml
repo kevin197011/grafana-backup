@@ -1,5 +1,5 @@
 groups:
-  - name: example
+  - name: node-exporter.rules
     rules:
 
     - alert: HostOutOfMemory
@@ -240,8 +240,3 @@ groups:
       annotations:
         summary: "Host Network Interface Saturated (instance {{ $labels.instance }})"
         description: "The network interface "{{ $labels.interface }}" on "{{ $labels.instance }}" is getting overloaded.\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
-
-
-
-
-
